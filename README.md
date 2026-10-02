@@ -1,59 +1,48 @@
-# Actividad2Registro
+# Actividad 2: Formulario Reactivo de Registro de Productos en Angular
+---
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+## 1. Descripción de la Actividad
+En esta actividad desarrollé un formulario reactivo en Angular enfocado en el registro de productos. La aplicación cuenta con validaciones sobre cada campo, mostrando mensajes de error dinámicos en tiempo real según la interacción del usuario. Además, integré un servicio para simular el envío de los datos al backend únicamente cuando la información ingresada es válida.
 
-## Development server
+---
 
-To start a local development server, run:
+## 2. Modelo de Datos (`Producto`)
+Creé la interfaz `Producto` en la ruta `src/app/models/producto.ts` para estructurar la información que maneja el formulario:
 
-```bash
-ng serve
-```
+- `nombre` (string): Nombre del producto.
+- `descripcion` (string): Detalles o especificaciones del producto.
+- `precio` (number): Valor monetario del producto.
+- `categoria` (string): Categoría a la que pertenece el producto.
+- `stock` (number): Cantidad disponible en inventario.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 3. Validaciones y Estados del Formulario
+Construí el formulario utilizando `FormBuilder` y le asigné las siguientes reglas de validación:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Nombre:** Campo obligatorio (`Validators.required`) con una longitud mínima de 3 caracteres (`Validators.minLength(3)`).
+- **Descripción:** Campo obligatorio (`Validators.required`).
+- **Precio:** Campo obligatorio (`Validators.required`) y debe ser un valor mayor a 0 (`Validators.min(0.01)`).
+- **Categoría:** Selección obligatoria (`Validators.required`).
+- **Stock:** Campo obligatorio (`Validators.required`) con un mínimo de 1 unidad (`Validators.min(1)`).
 
-```bash
-ng generate component component-name
-```
+Para controlar el flujo de envío, el botón se deshabilita mientras el formulario sea inválido mediante `[disabled]="productoForm.invalid"`. Asimismo, si se intenta enviar el formulario, ejecuto `markAllAsTouched()` para resaltar visualmente los campos pendientes.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 4. Uso de Directivas Estructurales (*ngIf y *ngFor)
+- **`*ngIf`:** Lo utilicé para evaluar si un control ha sido interactuado (`touched`) y si es inválido (`invalid`), desplegando de forma dinámica los mensajes de error correspondientes debajo de cada campo.
+- **`*ngFor`:** Lo empleé para iterar sobre un listado de categorías en el componente y renderizar las opciones dentro del elemento desplegable (`<select>`).
 
-## Building
+---
 
-To build the project run:
+## 5. Servicio e Inyección de Dependencias
+Inyecté el servicio `ProductoService` en mi componente mediante la función `inject()`. Al procesar el envío, la lógica valida que el estado de `productoForm.valid` sea correcto. Si se cumplen los requisitos, los datos son transmitidos al servicio, el cual imprime el objeto en la consola del navegador como prueba de recepción.
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 6. Pruebas y Evidencia de Funcionamiento
 
-## Running unit tests
+A continuación adjunto la captura de pantalla donde se aprecia el formulario lleno con datos válidos y la confirmación de llegada en la consola del navegador:
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+![alt text](image-1.png)

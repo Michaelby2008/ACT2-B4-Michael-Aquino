@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RegistroProductoComponent } from './registro-producto/registro-producto';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
-  templateUrl: './app.html',
+  standalone: true,
+  imports: [RegistroProductoComponent],
+  template: `<app-registro-producto></app-registro-producto>`
 })
-export class App {
-  protected readonly title = signal('actividad2-registro');
-}
+export class App { }

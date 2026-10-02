@@ -1,0 +1,56 @@
+<div style="max-width: 400px; margin: 20px auto; font-family: sans-serif;">
+  <h2>Registro de Productos</h2>
+  
+  <form [formGroup]="productoForm" (ngSubmit)="enviarDatos()" style="display: flex; flex-direction: column; gap: 15px;">
+    
+    <div>
+      <label>Nombre:</label><br>
+      <input type="text" formControlName="nombre" style="width: 100%;">
+      <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" style="color: red; font-size: 12px;">
+        <span *ngIf="productoForm.get('nombre')?.errors?.['required']">El nombre es obligatorio.</span>
+        <span *ngIf="productoForm.get('nombre')?.errors?.['minlength']">Mínimo 3 caracteres.</span>
+      </div>
+    </div>
+
+    <div>
+      <label>Descripción:</label><br>
+      <input type="text" formControlName="descripcion" style="width: 100%;">
+      <span *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched" style="color: red; font-size: 12px;">
+        La descripción es obligatoria.
+      </span>
+    </div>
+
+    <div>
+      <label>Precio:</label><br>
+      <input type="number" formControlName="precio" style="width: 100%;">
+      <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" style="color: red; font-size: 12px;">
+        <span *ngIf="productoForm.get('precio')?.errors?.['required']">El precio es obligatorio.</span>
+        <span *ngIf="productoForm.get('precio')?.errors?.['min']">Debe ser mayor a 0.</span>
+      </div>
+    </div>
+
+    <div>
+      <label>Categoría:</label><br>
+      <select formControlName="categoria" style="width: 100%;">
+        <option value="" disabled>Seleccione...</option>
+        <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+      </select>
+      <span *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched" style="color: red; font-size: 12px;">
+        Seleccione una categoría.
+      </span>
+    </div>
+
+    <div>
+      <label>Stock:</label><br>
+      <input type="number" formControlName="stock" style="width: 100%;">
+      <div *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched" style="color: red; font-size: 12px;">
+        <span *ngIf="productoForm.get('stock')?.errors?.['required']">El stock es obligatorio.</span>
+        <span *ngIf="productoForm.get('stock')?.errors?.['min']">El stock mínimo es 1.</span>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="productoForm.invalid" style="padding: 10px; background-color: #0056b3; color: white; border: none;">
+      Registrar Producto
+    </button>
+  </form>
+</div>

@@ -10,7 +10,6 @@
     "serve:ssr:actividad2-registro": "node dist/actividad2-registro/server/server.mjs"
   },
   "private": true,
-  "packageManager": "npm@10.9.8",
   "dependencies": {
     "@angular/common": "^22.1.0",
     "@angular/compiler": "^22.1.0",
